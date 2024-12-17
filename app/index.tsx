@@ -1,28 +1,44 @@
 import GridButton from "@/components/GridButton";
 import Grid from "@/components/Grid"
 import { Button, Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { useState } from "react";
+import Start from "@/components/Start";
 
 const Index = () => {
+  const [isGameActive, activateGame] = useState(false);
+  if(!isGameActive){
+    return(
+      <View style= {styles.container}>
+        <Text style= {styles.textHeader}>Memorio!</Text>
+        <View style= {styles.buttonContainer}>
+          <Start startGame={activateGame}></Start>
+        </View>
+      </View>
+    )
+  } else{
   return (
-    <View>
-      <Text>This is going to be my app</Text>
-      <View>
-        <Grid>
-          
-        </Grid>
+    <View style= {styles.container}>
+      <Text style= {styles.textHeader}>Memorio!</Text>
+      <View style= {styles.gridContainer}>
+        <Grid gamestate= {false} gameSequence={[2, 6, 7, 8, 4, 3]} flipGame={activateGame}></Grid>
       </View>
       </View>
   );
 }
+}
+
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
+    backgroundColor: "grey"
   },
   buttonContainer: {
     margin: 20,
-    color: "#857234"
+    color: "#857234",
+    alignItems: "center"
   },
   alternativeLayoutButtonContainer: {
     margin: 20,
@@ -35,6 +51,18 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  gridContainer: {
+    padding: 10,
+    alignItems: "center",
+    marginTop: 50,
+    marginBottom: 100
+  },
+  textHeader: {
+    textAlign: "center",
+    textAlignVertical: "top",
+    fontSize: 50,
+    fontFamily: "Arial, Helvetica, sans-serif"
   }
 });
 
