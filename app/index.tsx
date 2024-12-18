@@ -20,7 +20,7 @@ const Index = () => {
     <View style= {styles.container}>
       <Text style= {styles.textHeader}>Memorio!</Text>
       <View style= {styles.gridContainer}>
-        <Grid gamestate= {false} gameSequence={[2, 6, 7, 8, 4, 3]} flipGame={activateGame}></Grid>
+        <Grid gamestate= {false} gameSequence={[]} flipGame={activateGame}></Grid>
       </View>
       </View>
   );
