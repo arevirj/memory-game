@@ -10,26 +10,32 @@ type gridButtonProps = {
     playerSeq: Array<number>
     switch: Function
     flash: boolean
+    setScore: Function
+    setLoss: Function
 }
 
 export default function GridButton(props: gridButtonProps){
     const color = getColor(props.id)
+    const [isPressed, setIsPressed] = useState(false);
     if(!props.playerTurn){
         return(
-            <TouchableOpacity disabled= {!props.playerTurn}></TouchableOpacity>
+           <View style= {[styles.button, {backgroundColor: color}]}></View>
         )
     }
     else{
-        const [isPressed, setIsPressed] = useState(false);
-    return(<TouchableOpacity onPressIn={() => setIsPressed(true)}  style = {[styles.button, isPressed && {
+        
+    return(<TouchableOpacity activeOpacity= {1} onPressIn={() => setIsPressed(true)}  style = {[styles.button, isPressed && {
         width: 115,
         height: 115,
-        backgroundColor: "blue",
+        backgroundColor: color,
         margin: 5
-      }, props.flash && {backgroundColor: color}]} disabled= {!props.playerTurn} onPress= {() => {
+      }, props.flash && {backgroundColor: color}, ]} disabled= {!props.playerTurn} onPress= {() => {
         console.log(props.id)
         props.playerSeq.push(props.id)
         if(props.gameSequence[props.playerSeq.length - 1] != props.playerSeq[props.playerSeq.length-1]){
+            console.log(props.gameSequence.length - 1)
+            props.setScore(props.gameSequence.length -1)
+            props.setLoss(true);
             props.flipGame(false);
         } else if(props.playerSeq.length == props.gameSequence.length){
             //flip player turn.

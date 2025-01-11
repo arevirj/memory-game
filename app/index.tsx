@@ -3,10 +3,14 @@ import Grid from "@/components/Grid"
 import { Button, Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { useState } from "react";
 import Start from "@/components/Start";
+import LoseScreen from "@/components/LoseScreen";
 
 const Index = () => {
   const [isGameActive, activateGame] = useState(false);
-  if(!isGameActive){
+  const [gameLost, setGameLost] = useState(false)
+  const [score, setScore] = useState(0)
+
+  if(!isGameActive && !gameLost){
     return(
       <View style= {styles.container}>
         <Text style= {styles.textHeader}>Memorio!</Text>
@@ -15,12 +19,21 @@ const Index = () => {
         </View>
       </View>
     )
-  } else{
+  } else if(!isGameActive && gameLost){
+    return(
+    <View style= {styles.container}>
+        <Text style= {styles.textHeader}>Memorio!</Text>
+        <View style= {styles.buttonContainer}>
+          <LoseScreen score={score} startGame={activateGame} activateLoss={setGameLost}></LoseScreen>
+        </View>
+      </View>)
+  }
+  else{
   return (
     <View style= {styles.container}>
       <Text style= {styles.textHeader}>Memorio!</Text>
       <View style= {styles.gridContainer}>
-        <Grid gamestate= {false} gameSequence={[]} flipGame={activateGame}></Grid>
+        <Grid gamestate= {false} gameSequence={[]} flipGame={activateGame} setGameLoss={setGameLost} setScore={setScore}></Grid>
       </View>
       </View>
   );
@@ -33,7 +46,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "grey"
+    backgroundColor: "#FFE4C4"
   },
   buttonContainer: {
     margin: 20,
@@ -59,10 +72,15 @@ const styles = StyleSheet.create({
     marginBottom: 100
   },
   textHeader: {
-    textAlign: "center",
-    textAlignVertical: "top",
-    fontSize: 50,
-    fontFamily: "Arial, Helvetica, sans-serif"
+    fontSize: 40, // Large and prominent
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: 'blue', // Bright red for emphasis
+    textShadowColor: 'cyan', // Subtle shadow for a glowing effect
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 4,
+    letterSpacing: 2, // Adds spacing for a dramatic effect
+    textTransform: 'uppercase', // Makes the text more striking
   }
 });
 
