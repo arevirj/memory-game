@@ -1,9 +1,11 @@
 import GridButton from "@/components/GridButton";
 import Grid from "@/components/Grid"
-import { Button, Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { Button, Text, View, StyleSheet, TouchableOpacity, } from "react-native";
 import { useState } from "react";
+import{ Link } from "expo-router"
 import Start from "@/components/Start";
 import LoseScreen from "@/components/LoseScreen";
+import Leaderboard from "./leaderboard";
 
 const Index = () => {
   const [isGameActive, activateGame] = useState(false);
@@ -16,6 +18,7 @@ const Index = () => {
         <Text style= {styles.textHeader}>Memorio!</Text>
         <View style= {styles.buttonContainer}>
           <Start startGame={activateGame}></Start>
+          <Link href= "/leaderboard">Leaderboard</Link>
         </View>
       </View>
     )
