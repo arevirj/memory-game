@@ -24,6 +24,7 @@
     },
     "plugins": [
       "expo-router",
+      "@react-native-firebase/app",
       [
         "expo-splash-screen",
         {
@@ -33,8 +34,7 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      "expo-font",
-      "@react-native-firebase/app"
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true
