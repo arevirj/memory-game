@@ -1,17 +1,39 @@
 import GridButton from "@/components/GridButton";
 import Grid from "@/components/Grid"
 import { Button, Text, View, StyleSheet, TouchableOpacity, } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import{ Link } from "expo-router"
 import Start from "@/components/Start";
 import LoseScreen from "@/components/LoseScreen";
 import Leaderboard from "./leaderboard";
+import LoseReturn from "@/components/LoseReturn";
+import Login from "@/components/Login";
+import User from "@/components/Users"
+import auth from "@/backend/auth"
 
 const Index = () => {
+  let curruser: User = {
+    email:'', password:''
+  }
+  const [user, setUser] = useState(auth.currentUser)
   const [isGameActive, activateGame] = useState(false);
   const [gameLost, setGameLost] = useState(false)
   const [score, setScore] = useState(0)
 
+  useEffect(() => {
+    console.log("User state updated:", user);
+  }, [user]);
+  if(!user){
+    return(
+    <View style= {styles.container}>
+        <Text style= {styles.textHeader}>Memorio!</Text>
+        <View style= {styles.buttonContainer}>
+          <Login setUser={setUser}></Login>
+        </View>
+      </View>
+    )
+  }
+  else{
   if(!isGameActive && !gameLost){
     return(
       <View style= {styles.container}>
@@ -19,6 +41,7 @@ const Index = () => {
         <View style= {styles.buttonContainer}>
           <Start startGame={activateGame}></Start>
           <Link href= "/leaderboard">Leaderboard</Link>
+          <Text>Signed in as: {user.email}</Text>
         </View>
       </View>
     )
@@ -28,6 +51,9 @@ const Index = () => {
         <Text style= {styles.textHeader}>Memorio!</Text>
         <View style= {styles.buttonContainer}>
           <LoseScreen score={score} startGame={activateGame} activateLoss={setGameLost}></LoseScreen>
+        </View>
+        <View style= {styles.buttonContainer}>
+          <LoseReturn activateLoss={setGameLost}></LoseReturn>
         </View>
       </View>)
   }
@@ -41,6 +67,7 @@ const Index = () => {
       </View>
   );
 }
+  }
 }
 
 

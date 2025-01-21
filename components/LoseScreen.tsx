@@ -1,4 +1,5 @@
 import {StyleSheet, Button, Text, TouchableOpacity, View} from "react-native"
+import LoseReturn from "./LoseReturn";
 
 
 type loseProps = {
@@ -15,8 +16,8 @@ export default function LoseScreen(props: loseProps){
             <TouchableOpacity style={styles.button} onPress={() => {
                 props.startGame(true)
                 props.activateLoss(false)}}>
-            <Text style= {styles.text}>Restart Game</Text>
-        </TouchableOpacity>
+              <Text style= {styles.text}>Restart Game</Text>
+            </TouchableOpacity>
         </View>
         
     )
