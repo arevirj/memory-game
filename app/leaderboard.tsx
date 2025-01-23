@@ -21,8 +21,8 @@ async function fetchData() {
         item.score=docData.score;
         query.push(item)
       });
-    
-    return query
+      const sorted = query.sort((prev, curr) => curr.score - prev.score);
+    return sorted
 }
 
 
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
       },
       tableRow: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'center',
         paddingVertical: 10,
         paddingHorizontal: 15,

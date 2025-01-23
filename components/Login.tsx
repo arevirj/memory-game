@@ -42,6 +42,8 @@ export default function Login(props: loginProps){
                     .then((userCredential) => {
                         // Signed up 
                         const user = userCredential.user;
+                        console.log(user.email)
+                        props.setUser(user)
                         return(user)
                     })
                     .catch((error) => {
