@@ -6,6 +6,7 @@ type loseProps = {
     startGame: Function;
     activateLoss: Function;
     score: number
+    user: string | undefined
 };
 
 export default function LoseScreen(props: loseProps){

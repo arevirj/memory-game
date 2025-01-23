@@ -10,11 +10,10 @@ import LoseReturn from "@/components/LoseReturn";
 import Login from "@/components/Login";
 import User from "@/components/Users"
 import auth from "@/backend/auth"
+import db from "@/backend/database";
+import {collection, doc, setDoc, addDoc, DocumentData, getFirestore, getDocs} from "firebase/firestore"
 
 const Index = () => {
-  let curruser: User = {
-    email:'', password:''
-  }
   const [user, setUser] = useState(auth.currentUser)
   const [isGameActive, activateGame] = useState(false);
   const [gameLost, setGameLost] = useState(false)
@@ -40,17 +39,35 @@ const Index = () => {
         <Text style= {styles.textHeader}>Memorio!</Text>
         <View style= {styles.buttonContainer}>
           <Start startGame={activateGame}></Start>
-          <Link href= "/leaderboard">Leaderboard</Link>
+          <View style= {styles.buttonContainer}>
+             <Link href= "/leaderboard" asChild>
+              <TouchableOpacity style={styles.altbutton}>
+                <Text style={styles.altbuttonText}>Leaderboard</Text>
+              </TouchableOpacity>
+            </Link>
+          </View>
           <Text>Signed in as: {user.email}</Text>
+          
         </View>
       </View>
     )
   } else if(!isGameActive && gameLost){
+      console.log("Score updated: ", score)
+      const docRef =  async () => { await addDoc(collection(db, "leaderboard"), {
+        email: auth.currentUser?.email,
+        score: score
+      });
+    }
+    docRef().then(() => {console.log("success")}).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorMessage)}); 
+    
     return(
     <View style= {styles.container}>
         <Text style= {styles.textHeader}>Memorio!</Text>
         <View style= {styles.buttonContainer}>
-          <LoseScreen score={score} startGame={activateGame} activateLoss={setGameLost}></LoseScreen>
+          <LoseScreen score={score} startGame={activateGame} activateLoss={setGameLost} user={auth.currentUser?.uid}></LoseScreen>
         </View>
         <View style= {styles.buttonContainer}>
           <LoseReturn activateLoss={setGameLost}></LoseReturn>
@@ -111,6 +128,24 @@ const styles = StyleSheet.create({
     textShadowRadius: 4,
     letterSpacing: 2, // Adds spacing for a dramatic effect
     textTransform: 'uppercase', // Makes the text more striking
+  },
+  altbutton: {
+    justifyContent: 'center',
+      alignItems: 'center',
+      width: 200, // Default width for the oval shape
+      height: 50, // Default height for the oval shape
+      borderRadius: 25, // Half of the height to make it an oval
+      backgroundColor: 'red', // Gradient effect
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.4,
+      shadowRadius: 4,
+  },
+  altbuttonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#FFF', // Ensures the text stands out
+    textAlign: 'center',
   }
 });
 

@@ -1,6 +1,7 @@
 import {StyleSheet, Text, View, TouchableOpacity} from "react-native"
 import Grid from "./Grid"
 import { useState } from "react"
+import auth from "@/backend/auth"
 
 type gridButtonProps = {
     id: number
