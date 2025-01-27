@@ -34,15 +34,22 @@ export default function Leaderboard(){
     })
     return(
         <View style={styles.container}>
-            <ScrollView contentContainerStyle={styles.container}>
-                <Text style={styles.textHeader}>Leaderboard</Text>
+            <Text style={styles.textHeader}>Leaderboard</Text>
+            <ScrollView contentContainerStyle={styles.scrollContainer}>
                 {query.map((data, ind) =>(
                     <View key={ind} style={styles.tableRow}>
-                        <Text style={styles.tableRowText}>{data["email"]}, {data["score"]}</Text>
+                        <Text style={styles.tableRowText}>{data["email"]}: {data["score"]}</Text>
                     </View>
                     ))}
-                <Link href="/">Back</Link>
+                
             </ScrollView>
+            <View style={styles.buttonContainer}>
+                <Link href="/" asChild>
+                    <TouchableOpacity style={styles.altbutton}>
+                        <Text style={styles.altbuttonText}>Back</Text>
+                    </TouchableOpacity>
+                </Link>
+            </View>
         </View>
     )
 }
@@ -51,9 +58,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#FFE4C4",
-        alignContent: 'center',
-        flexDirection: 'column',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        paddingTop: 60
+      },
+      scrollContainer: {
+        backgroundColor: "#FFE4C4",
+        padding: 10
       },
       tableRow: {
         flexDirection: 'row',
@@ -63,22 +73,55 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         backgroundColor: '#f8f9fa',
         borderBottomWidth: 1,
+        borderRadius: 15,
         borderBottomColor: '#e0e0e0',
       },
       tableRowText: {
-        fontSize: 16,
-        color: '#343a40',
-      },
-      textHeader: {
-        fontSize: 40, // Large and prominent
+        fontSize: 16, // Large and prominent
         fontWeight: 'bold',
         textAlign: 'center',
-        color: 'blue', // Bright red for emphasis
+        color: 'red', // Bright red for emphasis
         textShadowColor: 'cyan', // Subtle shadow for a glowing effect
         textShadowOffset: { width: 2, height: 2 },
         textShadowRadius: 4,
         letterSpacing: 2, // Adds spacing for a dramatic effect
         textTransform: 'uppercase', // Makes the text more striking
       },
+      textHeader: {
+        fontSize: 40, // Large and prominent
+        fontWeight: 'bold',
+        textAlign: 'center',
+        color: 'blue', // Bright red for emphasis
+        textShadowColor: 'yellow', // Subtle shadow for a glowing effect
+        textShadowOffset: { width: 2, height: 2 },
+        textShadowRadius: 4,
+        letterSpacing: 2, // Adds spacing for a dramatic effect
+        textTransform: 'uppercase', // Makes the text more striking
+      },
+      altbutton: {
+        justifyContent: 'center',
+          alignItems: 'center',
+          width: 200, // Default width for the oval shape
+          height: 50, // Default height for the oval shape
+          borderRadius: 25, // Half of the height to make it an oval
+          backgroundColor: 'red', // Gradient effect
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 4 },
+          shadowOpacity: 0.4,
+          shadowRadius: 4,
+      },
+      altbuttonText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#FFF', // Ensures the text stands out
+        textAlign: 'center',
+      },
+      buttonContainer: {
+        margin: 20,
+        color: "#857234",
+        alignItems: "center",
+        paddingBottom: 30
+      },
+      
     
 })

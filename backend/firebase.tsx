@@ -5,7 +5,7 @@ import { addDoc } from "firebase/firestore";  //testing
 
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyClUUJROc5SD00NwPmTXbZ7ZYlTBjheRyQ",
+    apiKey: "AIzaSyClUUJROc5SD00NwPmTXbZ7ZYlTBjheRyQ",  
     authDomain: "memory-app-10e6b.firebaseapp.com",
     projectId: "memory-app-10e6b",
     storageBucket: "memory-app-10e6b.firebasestorage.app",
